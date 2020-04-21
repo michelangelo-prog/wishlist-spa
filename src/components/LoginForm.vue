@@ -1,18 +1,18 @@
 <template>
   <div>
     <h2>Please log in:</h2>
-    <b-form @submit="onSubmit" @reset="onReset">
+    <b-form @submit="onSubmit">
       <b-form-group
         id="input-group-1"
-        label="Email address or username:"
+        label="Email address:"
         label-for="input-1"
       >
         <b-form-input
           id="input-1"
-          v-model="formData.login"
-          type="text"
+          v-model="formData.email"
+          type="email"
           required
-          placeholder="Enter email or username"
+          placeholder="Enter email"
         ></b-form-input>
       </b-form-group>
 
@@ -32,20 +32,29 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
       formData: {
-        login: "",
+        email: "",
         password: "",
       },
     };
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
-      alert(JSON.stringify(this.formData));
+     ...mapActions([
+      "login"
+    ]),
+    onSubmit() {
+      this.login(this.formData)
+      .then(() => this.redirectToHomePage())
+      // alert(JSON.stringify(this.formData));
     },
+    redirectToHomePage(){
+      this.$router.push({ name: "Home" });
+    }
   },
 };
 </script>
