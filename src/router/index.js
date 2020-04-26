@@ -12,13 +12,16 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
     meta: {
-      notRequiresAuth: true,
+      requiresVisitor: true,
     },
   },
   {
@@ -26,7 +29,7 @@ const routes = [
     name: "Register",
     component: Register,
     meta: {
-      notRequiresAuth: true,
+      requiresVisitor: true,
     },
   },
 ];
@@ -36,16 +39,23 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => !record.meta.notRequiresAuth)) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    if (!store.getters.isAuthenticated) {
-      next({ name: "Login" });
+  const isAuthenticated = store.getters.isAuthenticated;
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!isAuthenticated) {
+      next({
+        path: "/login",
+      });
     } else {
-      next(); // go to wherever I'm going
+      next();
     }
-  } else {
-    next(); // does not require auth, make sure to always call next()!
+  } else if (to.matched.some((record) => record.meta.requiresVisitor)) {
+    if (isAuthenticated) {
+      next({
+        path: "/",
+      });
+    } else {
+      next();
+    }
   }
 });
 

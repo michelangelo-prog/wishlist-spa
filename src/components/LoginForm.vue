@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>Please log in:</h2>
+    <b-alert v-if="errorMsg" show variant="danger">{{ errorMsg }}</b-alert>
     <b-form @submit="onSubmit">
       <b-form-group
         id="input-group-1"
@@ -33,6 +34,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { EventBus } from '@/utils'
 
 export default {
   data() {
@@ -41,20 +43,31 @@ export default {
         email: "",
         password: "",
       },
+      errorMsg:"",
     };
   },
   methods: {
      ...mapActions([
-      "login"
+      "login",
     ]),
     onSubmit() {
       this.login(this.formData)
-      .then(() => this.redirectToHomePage())
-      // alert(JSON.stringify(this.formData));
     },
     redirectToHomePage(){
       this.$router.push({ name: "Home" });
     }
   },
+  mounted() {
+    EventBus.$on('failedAuthentication', (error) => {
+      this.errorMsg = error.response.data.message;
+    }),
+    EventBus.$on('successAuthentication', () => {
+      this.redirectToHomePage()
+    })
+  },
+  beforeDestroy () {
+    EventBus.$off('failedAuthentication')
+    EventBus.$off('successAuthentication')
+  }
 };
 </script>
