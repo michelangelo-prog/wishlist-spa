@@ -18,8 +18,17 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Your username:" label-for="input-2">
-        <b-form-input id="input-2" v-model="form.username" required placeholder="Enter username"></b-form-input>
+      <b-form-group
+        id="input-group-2"
+        label="Your username:"
+        label-for="input-2"
+      >
+        <b-form-input
+          id="input-2"
+          v-model="form.username"
+          required
+          placeholder="Enter username"
+        ></b-form-input>
       </b-form-group>
 
       <b-form-group id="input-group-3" label="Password:" label-for="input-3">
@@ -34,8 +43,8 @@
 
       <b-button type="submit" variant="primary">Log In</b-button>
     </b-form>
-  </div>
-</template>>
+  </div> </template
+>>
 
 <script>
 // import { mapActions } from "vuex";

@@ -13,45 +13,45 @@ const routes = [
     name: "Home",
     component: Home,
     meta: {
-      requiresAuth: true,
-    },
+      requiresAuth: true
+    }
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
     meta: {
-      requiresVisitor: true,
-    },
+      requiresVisitor: true
+    }
   },
   {
     path: "/register",
     name: "Register",
     component: Register,
     meta: {
-      requiresVisitor: true,
-    },
-  },
+      requiresVisitor: true
+    }
+  }
 ];
 
 const router = new VueRouter({
-  routes,
+  routes
 });
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = store.getters.isAuthenticated;
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!isAuthenticated) {
       next({
-        path: "/login",
+        path: "/login"
       });
     } else {
       next();
     }
-  } else if (to.matched.some((record) => record.meta.requiresVisitor)) {
+  } else if (to.matched.some(record => record.meta.requiresVisitor)) {
     if (isAuthenticated) {
       next({
-        path: "/",
+        path: "/"
       });
     } else {
       next();

@@ -1,3 +1,3 @@
 export default {
-  jwt: '',
+  jwt: ""
 };

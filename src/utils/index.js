@@ -1,6 +1,6 @@
-import Vue from 'vue'
+import Vue from "vue";
 
-export let EventBus = new Vue()
+export let EventBus = new Vue();
 
 export function isValidJwt(jwt) {
   if (!jwt || jwt.split(".").length < 3) {

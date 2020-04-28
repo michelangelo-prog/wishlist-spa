@@ -34,40 +34,38 @@
 
 <script>
 import { mapActions } from "vuex";
-import { EventBus } from '@/utils'
+import { EventBus } from "@/utils";
 
 export default {
   data() {
     return {
       formData: {
         email: "",
-        password: "",
+        password: ""
       },
-      errorMsg:"",
+      errorMsg: ""
     };
   },
   methods: {
-     ...mapActions([
-      "login",
-    ]),
+    ...mapActions(["login"]),
     onSubmit() {
-      this.login(this.formData)
+      this.login(this.formData);
     },
-    redirectToHomePage(){
+    redirectToHomePage() {
       this.$router.push({ name: "Home" });
     }
   },
   mounted() {
-    EventBus.$on('failedAuthentication', (error) => {
+    EventBus.$on("failedAuthentication", error => {
       this.errorMsg = error.response.data.message;
     }),
-    EventBus.$on('successAuthentication', () => {
-      this.redirectToHomePage()
-    })
+      EventBus.$on("successAuthentication", () => {
+        this.redirectToHomePage();
+      });
   },
-  beforeDestroy () {
-    EventBus.$off('failedAuthentication')
-    EventBus.$off('successAuthentication')
+  beforeDestroy() {
+    EventBus.$off("failedAuthentication");
+    EventBus.$off("successAuthentication");
   }
 };
 </script>
