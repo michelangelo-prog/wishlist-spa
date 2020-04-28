@@ -1,9 +1,15 @@
 <template> 
     <div>
-        register page
+        <RegistrationForm />
     </div>
 </template>
 
 <script>
-export default {};
+import RegistrationForm from "../components/RegistrationForm.vue";
+
+export default {
+    components: {
+        RegistrationForm
+    }
+};
 </script>
