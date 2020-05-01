@@ -1,4 +1,4 @@
-import { authenticate, register } from "@/api";
+import { authenticate, register, logout } from "@/api";
 import { EventBus } from "@/utils";
 
 export default {
@@ -20,5 +20,19 @@ export default {
       .catch(error => {
         EventBus.$emit("failedRegistration", error);
       });
+  },
+  logout: ({ commit, dispatch, getters }) => {
+    const headers = getters.getAuthHeaders;
+    return logout(headers)
+      .then(() => {
+        commit("SET_JWT_TOKEN", "");
+        EventBus.$emit("successLogout");
+      })
+      .catch(error => {
+        dispatch("showErrorInConsole", error);
+      });
+  },
+  showErrorInConsole: (context, error) => {
+    console.log(error);
   }
 };

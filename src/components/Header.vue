@@ -12,14 +12,21 @@
           >Sign Up</router-link
         >
       </b-nav-item>
+      <b-nav-item>
+        <LogoutButton v-if="isAuthenticated" />
+      </b-nav-item>
     </b-nav>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import LogoutButton from "@/components/LogoutButton.vue";
 
 export default {
+  components: {
+    LogoutButton
+  },
   computed: {
     ...mapGetters(["isAuthenticated"])
   }

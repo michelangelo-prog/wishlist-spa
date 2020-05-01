@@ -17,3 +17,11 @@ export function register(data) {
     data: data
   });
 }
+
+export function logout(headers) {
+  return axios({
+    method: "post",
+    url: `${API_URL}/users/logout`,
+    headers: headers
+  });
+}
