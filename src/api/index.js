@@ -9,3 +9,11 @@ export function authenticate(data) {
     data: data
   });
 }
+
+export function register(data) {
+  return axios({
+    method: "post",
+    url: `${API_URL}/users/register`,
+    data: data
+  });
+}

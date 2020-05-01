@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>Please register:</h2>
+    <b-alert v-if="successMsg" show variant="info">{{ successMsg }}</b-alert>
     <b-alert v-if="errorMsg" show variant="danger">{{ errorMsg }}</b-alert>
     <b-form @submit="onSubmit">
       <b-form-group
@@ -41,13 +42,14 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Log In</b-button>
+      <b-button type="submit" variant="primary">Sign In</b-button>
     </b-form>
-  </div> </template
->>
+  </div>
+</template>
 
 <script>
-// import { mapActions } from "vuex";
+import { mapActions } from "vuex";
+import { EventBus } from "@/utils";
 
 export default {
   data() {
@@ -57,13 +59,40 @@ export default {
         email: "",
         password: ""
       },
-      errorMsg: ""
+      errorMsg: "",
+      successMsg: ""
     };
   },
   methods: {
+    ...mapActions(["register"]),
     onSubmit() {
-      console.log(this.form);
+      this.register(this.form);
+    },
+    clearForm() {
+      this.resetFormData();
+    },
+    resetFormData() {
+      this.form.username = "";
+      this.form.email = "";
+      this.form.password = "";
+    },
+    clearErrorMsg() {
+      this.errorMsg = "";
     }
+  },
+  mounted() {
+    EventBus.$on("successRegistration", successMessage => {
+      this.clearForm();
+      this.clearErrorMsg();
+      this.successMsg = successMessage;
+    });
+    EventBus.$on("failedRegistration", error => {
+      this.errorMsg = error.response.data.message;
+    });
+  },
+  beforeDestroy() {
+    EventBus.$off("successRegistration");
+    EventBus.$off("failedRegistration");
   }
 };
 </script>

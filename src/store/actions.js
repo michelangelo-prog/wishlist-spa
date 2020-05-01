@@ -1,4 +1,4 @@
-import { authenticate } from "@/api";
+import { authenticate, register } from "@/api";
 import { EventBus } from "@/utils";
 
 export default {
@@ -10,6 +10,15 @@ export default {
       })
       .catch(error => {
         EventBus.$emit("failedAuthentication", error);
+      });
+  },
+  register: (context, userData) => {
+    return register(userData)
+      .then(response => {
+        EventBus.$emit("successRegistration", response.data.message);
+      })
+      .catch(error => {
+        EventBus.$emit("failedRegistration", error);
       });
   }
 };

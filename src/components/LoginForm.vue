@@ -58,10 +58,10 @@ export default {
   mounted() {
     EventBus.$on("failedAuthentication", error => {
       this.errorMsg = error.response.data.message;
-    }),
-      EventBus.$on("successAuthentication", () => {
-        this.redirectToHomePage();
-      });
+    });
+    EventBus.$on("successAuthentication", () => {
+      this.redirectToHomePage();
+    });
   },
   beforeDestroy() {
     EventBus.$off("failedAuthentication");
