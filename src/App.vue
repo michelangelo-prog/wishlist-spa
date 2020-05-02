@@ -2,6 +2,9 @@
   <div id="app">
     <Header />
     <b-container class="bv-example-row">
+
+      <hr class="my-2" />
+      
       <b-row>
         <b-col sm="6" offset="3">
           <router-view />
