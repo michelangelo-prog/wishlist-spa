@@ -1,9 +1,5 @@
 <template>
-  <div>
-    <b-button squared variant="outline-secondary" @click="logoutFromPage"
-      >Logout</b-button
-    >
-  </div>
+  <div></div>
 </template>
 
 <script>
@@ -11,6 +7,8 @@ import { mapActions } from "vuex";
 import { EventBus } from "@/utils";
 
 export default {
+  name: "Logout",
+  components: {},
   methods: {
     ...mapActions(["logout"]),
     redirectToLoginPage() {
@@ -21,6 +19,7 @@ export default {
     }
   },
   mounted() {
+    this.logoutFromPage();
     EventBus.$on("successLogout", () => {
       this.redirectToLoginPage();
     });

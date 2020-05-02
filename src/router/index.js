@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import Logout from "../views/Logout.vue";
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -30,6 +31,14 @@ const routes = [
     component: Register,
     meta: {
       requiresVisitor: true
+    }
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    component: Logout,
+    meta: {
+      requiresAuth: true
     }
   }
 ];
