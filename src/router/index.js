@@ -4,6 +4,10 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Logout from "../views/Logout.vue";
+import Friends from "../views/Friends.vue";
+import FriendsFind from "../views/FriendsFind.vue";
+import InvitationsPending from "../views/InvitationsPending.vue";
+import InvitationsSent from "../views/InvitationsSent.vue";
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -13,6 +17,46 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/friends",
+    name: "Friends",
+    component: Friends,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/friends/find",
+    name: "FriendsFind",
+    component: FriendsFind,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/friends/find",
+    name: "FriendsFind",
+    component: FriendsFind,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/friends/invitations/pending",
+    name: "FriendsInvitationsPending",
+    component: InvitationsPending,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/friends/invitations/sent",
+    name: "FriendsInvitationsSent",
+    component: InvitationsSent,
     meta: {
       requiresAuth: true
     }

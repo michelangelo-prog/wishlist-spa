@@ -7,10 +7,31 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="#" v-if="isAuthenticated">Friends</b-nav-item>
+          <b-nav-item-dropdown>
+            <template v-slot:button-content>
+              <em>Friends</em>
+            </template>
+            <b-dropdown-item to="/friends" v-if="isAuthenticated"
+              >Your friends</b-dropdown-item
+            >
+            <b-dropdown-item to="/friends/find" v-if="isAuthenticated"
+              >Find friend</b-dropdown-item
+            >
+            <b-dropdown-item
+              to="/friends/invitations/pending"
+              v-if="isAuthenticated"
+              >Pending invitations</b-dropdown-item
+            >
+            <b-dropdown-item
+              to="/friends/invitations/sent"
+              v-if="isAuthenticated"
+              >Invitations sent</b-dropdown-item
+            >
+          </b-nav-item-dropdown>
+          <!-- <b-nav-item to="/friends" v-if="isAuthenticated">Friends</b-nav-item>
           <b-nav-item href="#" v-if="isAuthenticated" disabled
             >Disabled</b-nav-item
-          >
+          > -->
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
